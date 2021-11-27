@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="175dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/audiowide"
+            android:text="Bowling Stats"
+            android:textAlignment="center"
+            android:textSize="40sp" />
+
+        <EditText
+            android:id="@+id/user_name_edit"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purple_200"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/title"
+            android:hint="Name"/>
+
+        <EditText
+            android:id="@+id/user_email_edit"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/purple_200"
+            android:hint="Email"
+            android:layout_below="@+id/user_name_edit"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"/>
+
+        <EditText
+            android:id="@+id/user_pw_edit"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="65dp"
+            android:backgroundTint="@color/purple_200"
+            android:hint="Password"
+            android:layout_below="@+id/user_email_edit"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/sign_up_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:layout_below="@+id/user_pw_edit"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/goToLogin_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:background="@android:color/transparent"
+        android:text="Already Have an Account?"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        android:layout_gravity="bottom|center"/>
+
+    <ImageView
+        android:id="@+id/logo_view"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:src="@drawable/imageedit_4_6596801562"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="25dp"/>
+
+
+
+</com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout>

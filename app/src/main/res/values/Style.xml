@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="android:actionOverflowButtonStyle">@style/menuIconCustom</item>
+    </style>
+
+    <style name="CalendarViewCustom" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/purple_200</item>
+    </style>
+
+    <style name="menuIconCustom" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_baseline_sort_24</item>
+        <item name="android:background">?android:attr/actionBarItemBackground</item>
+    </style>
+</resources>

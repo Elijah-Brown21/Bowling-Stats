@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/itemAverage"
+        android:title="Average"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/itemHighGame"
+        android:title="High Game"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/itemTotalPins"
+        android:title="Total Pins"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/itemDate"
+        android:title="Date"
+        app:showAsAction="never" />
+
+</menu>

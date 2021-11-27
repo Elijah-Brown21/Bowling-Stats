@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    tools:context=".NewSessionActivity">
+
+    <TextView
+        android:id="@+id/view_date"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/edit_g1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/view_date"
+        android:hint="Game 1"
+        android:inputType="number"
+        android:textSize="25sp"
+        android:backgroundTint="@color/purple_200"/>
+
+    <EditText
+        android:id="@+id/edit_g2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_g1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:hint="Game 2"
+        android:inputType="number"
+        android:textSize="25sp"
+        android:backgroundTint="@color/purple_200"/>
+
+    <EditText
+        android:id="@+id/edit_g3"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_g2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:hint="Game 3"
+        android:inputType="number"
+        android:textSize="25sp"
+        android:backgroundTint="@color/purple_200"/>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_g3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:text="Confirm"
+        android:textSize="25sp"
+        android:padding="10dp"/>
+
+  </RelativeLayout>
