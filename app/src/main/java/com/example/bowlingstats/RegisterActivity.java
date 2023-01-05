@@ -54,7 +54,7 @@ public class RegisterActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), StatsPageActivity.class));
+            startActivity(new Intent(getApplicationContext(), UpdatedStatsActivity.class));
             finish();
         }
 
@@ -92,7 +92,7 @@ public class RegisterActivity extends Activity {
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this, "User Created", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), StatsPageActivity.class));
+                            startActivity(new Intent(getApplicationContext(), UpdatedStatsActivity.class));
 
                             String tempStrDate = "12/12/2012";
                             Date tempDate;

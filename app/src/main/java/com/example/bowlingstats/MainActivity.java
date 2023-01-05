@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         fabBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //TODO: Possible source of error for update, may need to start instead of return
-                Intent openStatsActivity = new Intent(MainActivity.this, StatsPageActivity.class);
+                Intent openStatsActivity = new Intent(MainActivity.this, UpdatedStatsActivity.class);
                 openStatsActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivityIfNeeded(openStatsActivity, 0);
                 finish();
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        Query query = sessionRef.orderBy("timestamp", Query.Direction.DESCENDING).limit(10);
+        Query query = sessionRef.orderBy("timestamp", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Session> options = new FirestoreRecyclerOptions.Builder<Session>()
                 .setQuery(query, Session.class)
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateRecyclerView(String sortChoice) {
-        Query newQuery = sessionRef.orderBy(sortChoice, Query.Direction.DESCENDING).limit(10);
+        Query newQuery = sessionRef.orderBy(sortChoice, Query.Direction.DESCENDING); //TODO: Removed limit, should be infinite now
 
         FirestoreRecyclerOptions<Session> newOptions = new FirestoreRecyclerOptions.Builder<Session>()
                 .setQuery(newQuery, Session.class)

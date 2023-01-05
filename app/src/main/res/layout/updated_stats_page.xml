@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/main_stat_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="10dp"
+        app:contentPadding="10dp"
+        android:layout_margin="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/midline_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/stat_line">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/midline_main_card_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/label_line_main_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.25"/>
+
+            <TextView
+                android:id="@+id/main_avg_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Overall Average"
+                app:layout_constraintBottom_toTopOf="@+id/label_line_main_card"
+                app:layout_constraintEnd_toStartOf="@+id/midline_main_card_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/main_avg_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="999"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/midline_main_card_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/label_line_main_card" />
+
+            <TextView
+                android:id="@+id/total_sessions_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="44"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/midline_main_card_vertical"
+                app:layout_constraintTop_toTopOf="@+id/label_line_main_card" />
+
+            <TextView
+                android:id="@+id/total_sessions_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Sessions"
+                app:layout_constraintBottom_toTopOf="@+id/label_line_main_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/midline_main_card_vertical"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/chart_info_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="10dp"
+        app:contentPadding="10dp"
+        android:layout_margin="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/stat_line"
+        app:layout_constraintEnd_toStartOf="@+id/midline_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/midline_horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chart_info_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/chart_info_dateline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.20" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/chart_info_mainline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.6" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/chart_info_midline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <TextView
+                android:id="@+id/shown_stat_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Average"
+                app:layout_constraintBottom_toTopOf="@+id/chart_info_mainline"
+                app:layout_constraintEnd_toStartOf="@+id/chart_info_midline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chart_info_dateline" />
+
+            <TextView
+                android:id="@+id/shown_stat_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="999"
+                app:layout_constraintBottom_toTopOf="@+id/chart_info_mainline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/chart_info_midline"
+                app:layout_constraintTop_toTopOf="@+id/chart_info_dateline" />
+
+            <TextView
+                android:id="@+id/shown_sessions_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sessions\nShown"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/chart_info_midline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chart_info_mainline" />
+
+            <TextView
+                android:id="@+id/shown_sessions_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="44"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/chart_info_midline"
+                app:layout_constraintTop_toTopOf="@+id/chart_info_mainline" />
+
+            <TextView
+                android:id="@+id/chart_info_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12/12/2022 - 12/12/2024"
+                app:layout_constraintBottom_toTopOf="@+id/chart_info_dateline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/list_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:src="@drawable/ic_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/midline_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/filter_btn" />
+
+
+    <ImageButton
+        android:id="@+id/filter_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:src="@drawable/ic_filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/midline_vertical"
+        app:layout_constraintTop_toTopOf="@+id/midline_horizontal" />
+
+    <ImageButton
+        android:id="@+id/date_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:src="@drawable/ic_date"
+        app:layout_constraintBottom_toTopOf="@+id/filter_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/midline_vertical"
+        app:layout_constraintTop_toTopOf="@+id/midline_horizontal" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/midline_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/midline_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/stat_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".8"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/chart_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="0.5"
+        app:cardCornerRadius="10dp"
+        app:contentPadding="10dp"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/midline_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/stats_chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

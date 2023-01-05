@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/average"
+        android:title="Average"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/high_game"
+        android:title="High Game"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/game_1"
+        android:title="Game 1"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/game_2"
+        android:title="Game 2"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/game_3"
+        android:title="Game 3"
+        app:showAsAction="never"/>
+
+
+</menu>

@@ -10,11 +10,11 @@
         android:id="@+id/parent_average"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="25dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" >
 
         <TextView
             android:id="@+id/average_title"
@@ -23,29 +23,53 @@
             android:layout_marginBottom="10dp"
             android:text="Averages:"
             android:textSize="35sp"
-            android:textStyle="italic|bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/chakra_petch_semibold"/>
 
         <TextView
             android:id="@+id/text_view_overall_average"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/average_title"
-            android:layout_marginLeft="15dp"
             android:layout_marginBottom="5dp"
-            android:text="Per Game.....................XXX"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/electrolize"
+            android:text="Per Game"
+            android:textSize="35sp"
+            android:textColor="@color/yellow" />
+
+        <TextView
+            android:id="@+id/overall_average_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/text_view_overall_average"
+            android:layout_alignParentEnd="true"
+            android:text="300"
+            android:fontFamily="@font/digital7_mono_italic"
+            android:textSize="45sp"
+            android:textColor="@color/yellow"/>
 
         <TextView
             android:id="@+id/text_view_session_average"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_view_overall_average"
-            android:layout_marginLeft="15dp"
             android:layout_marginBottom="5dp"
-            android:text="Session........................XXX"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:text="Session"
+            android:fontFamily="@font/electrolize"
+            android:textSize="35sp"
+            android:textColor="@color/yellow"
+            android:elevation="2dp"/>
+
+        <TextView
+            android:id="@+id/session_average_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/text_view_session_average"
+            android:layout_alignParentEnd="true"
+            android:text="999"
+            android:fontFamily="@font/digital7_mono_italic"
+            android:textSize="45sp"
+            android:textColor="@color/yellow"/>
 
         <TextView
             android:id="@+id/game1_view"
