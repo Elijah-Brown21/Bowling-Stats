@@ -151,32 +151,22 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
             case R.id.average:
                 optionSelected = R.id.average;
                 updateChart();
-                chartNumLabel.setText("Overall\nAverage");
-                chartNum.setText(String.valueOf(getUserPerGameAverage(currentList)));
                 break;
             case R.id.high_game:
                 optionSelected = R.id.high_game;
                 updateChart();
-                chartNumLabel.setText("High Game\nAverage");
-                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.high_game)));
                 break;
             case R.id.game_1:
                 optionSelected = R.id.game_1;
                 updateChart();
-                chartNumLabel.setText("Game 1\nAverage");
-                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.game_1)));
                 break;
             case R.id.game_2:
                 optionSelected = R.id.game_2;
                 updateChart();
-                chartNumLabel.setText("Game 2\nAverage");
-                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.game_2)));
                 break;
             case R.id.game_3: 
                 optionSelected = R.id.game_3;
                 updateChart();
-                chartNumLabel.setText("Game 3\nAverage");
-                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.game_3)));
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + item.getItemId());
@@ -247,6 +237,7 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
                 //will have to change so that the filter/date is changing what is shown
                 //Thus, on start, these functions should probably be called with some default parameters
 
+                optionSelected = R.id.average;
                 styleChart();
                 setStatsChart();
             }
@@ -261,7 +252,7 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
         for (int i = 0; i < 10; i++) {
             if (i < sessions.size()) {
                 Session current = sessions.get(i);
-                entries.add(new Entry(current.getTimestamp().getTime(), current.getAverage()));
+                entries.add(new Entry(current.getTimestamp().getTime(), optionGetter(current)));
                 currentList.add(current);
             }
         }
@@ -314,6 +305,7 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
         DateFormat df = new SimpleDateFormat("MM/dd/yy", Locale.US);
         chartDateLabel.setText(df.format(selectedStartDate + 28800000) + " - " + df.format(selectedEndDate + 28800000));
         //TODO: Update chart num label and number based on filter selection
+        getChartText();
     }
 
     public void styleChart() {
@@ -448,4 +440,30 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
         return attr;
     }
 
+    private void getChartText() {
+        switch (optionSelected) {
+            case R.id.average:
+                chartNumLabel.setText("Overall\nAverage");
+                chartNum.setText(String.valueOf(getUserPerGameAverage(currentList)));
+                break;
+            case R.id.high_game:
+                chartNumLabel.setText("High Game\nAverage");
+                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.high_game)));
+                break;
+            case R.id.game_1:
+                chartNumLabel.setText("Game 1\nAverage");
+                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.game_1)));
+                break;
+            case R.id.game_2:
+                chartNumLabel.setText("Game 2\nAverage");
+                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.game_2)));
+                break;
+            case R.id.game_3:
+                chartNumLabel.setText("Game 3\nAverage");
+                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.game_3)));
+                break;
+            default:
+                chartNumLabel.setText("Error, default reached");
+        }
+    }
 }
