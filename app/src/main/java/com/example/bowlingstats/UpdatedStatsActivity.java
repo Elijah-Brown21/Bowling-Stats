@@ -8,6 +8,7 @@ import androidx.core.util.Pair;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -39,9 +41,13 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
 
@@ -62,6 +68,7 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
     Long selectedEndDate;
     Long selectedStartDate;
     int optionSelected;
+    ArrayList<Session> currentList = new ArrayList<>();
 
     TextView overallAvg;
     TextView totalSessions;
@@ -84,8 +91,8 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
         statsChart = findViewById(R.id.stats_chart);
         overallAvg = findViewById(R.id.main_avg_number);
         totalSessions = findViewById(R.id.total_sessions_number);
-        chartNum = findViewById(R.id.shown_sessions_number);
-        chartNumLabel = findViewById(R.id.shown_sessions_label);
+        chartNum = findViewById(R.id.shown_stat_number);
+        chartNumLabel = findViewById(R.id.shown_stat_label);
         chartSessions = findViewById(R.id.shown_sessions_number);
         chartSessionsLabel = findViewById(R.id.shown_sessions_label);
         chartDateLabel = findViewById(R.id.chart_info_date_label);
@@ -114,8 +121,7 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
         });
 
         dateBtn = findViewById(R.id.date_btn);
-        MaterialDatePicker datePicker = MaterialDatePicker.Builder.dateRangePicker().
-                setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds())).build();
+        MaterialDatePicker datePicker = MaterialDatePicker.Builder.dateRangePicker().build();
 
         dateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,27 +151,37 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
             case R.id.average:
                 optionSelected = R.id.average;
                 updateChart();
+                chartNumLabel.setText("Overall\nAverage");
+                chartNum.setText(String.valueOf(getUserPerGameAverage(currentList)));
                 break;
             case R.id.high_game:
                 optionSelected = R.id.high_game;
                 updateChart();
+                chartNumLabel.setText("High Game\nAverage");
+                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.high_game)));
                 break;
             case R.id.game_1:
                 optionSelected = R.id.game_1;
                 updateChart();
+                chartNumLabel.setText("Game 1\nAverage");
+                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.game_1)));
                 break;
             case R.id.game_2:
                 optionSelected = R.id.game_2;
                 updateChart();
+                chartNumLabel.setText("Game 2\nAverage");
+                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.game_2)));
                 break;
             case R.id.game_3: 
                 optionSelected = R.id.game_3;
                 updateChart();
+                chartNumLabel.setText("Game 3\nAverage");
+                chartNum.setText(String.valueOf(getUserGameAverage(currentList, R.id.game_3)));
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + item.getItemId());
         }
-        return false; // remove later
+        return false;
     }
 
     @Override
@@ -231,8 +247,6 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
                 //will have to change so that the filter/date is changing what is shown
                 //Thus, on start, these functions should probably be called with some default parameters
 
-                // The null check may be good for keeping the selected dates when switching screens
-                //updateChart();
                 styleChart();
                 setStatsChart();
             }
@@ -241,33 +255,84 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
 
     //TODO: This should be the controller for the chart, and the date/filter functions will interact with it
     public void setStatsChart() {
-        //First, the raw data needs to be converted into Entry objects, which need an X and a Y
-        //I would think the X is time sensitive and is always date, so the date function can manipulate it
-        //Then the Y would be the filtered option from the filter function, which should be like the
-        //other filter menu in the list page, with the switch case, where each case will come here to
-        //update the chart with the selected parameter
         List<Entry> entries = new ArrayList<>();
+        currentList.clear();
 
         for (int i = 0; i < 10; i++) {
             if (i < sessions.size()) {
                 Session current = sessions.get(i);
                 entries.add(new Entry(current.getTimestamp().getTime(), current.getAverage()));
-                System.out.println("From the session " + current.getTimestamp().getTime());
+                currentList.add(current);
             }
         }
 
         Collections.sort(entries, new EntryXComparator());
 
-        LineDataSet dataSet = new LineDataSet(entries, "label");
+        LineDataSet dataSet = new LineDataSet(entries, "");
+        dataSet.setDrawValues(false);
 
         statsChart.setData(new LineData(dataSet));
+        statsChart.animateX(1000);
         statsChart.invalidate();
         chartSessions.setText(String.valueOf(entries.size()));
+
+        System.out.println("Should be start date " + entries.get(0).getX() + " for the number " + entries.get(0).getY());
+        System.out.println("Should be end date " + entries.get(entries.size()-1).getX() + " for the number " + entries.get(entries.size()-1).getY());
+
+        //Configure current selected dates and chart label based on start and end dates of the past 10 sessions
+        DateFormat df = new SimpleDateFormat("MM/dd/yy", Locale.US);
+        selectedStartDate = sessions.get(currentList.size()-1).getTimestamp().getTime() - 28800000;
+        selectedEndDate = sessions.get(0).getTimestamp().getTime() - 28800000;
+
+        chartDateLabel.setText(df.format(selectedStartDate + 28800000) + " - " + df.format(selectedEndDate + 28800000));
+        chartNumLabel.setText("Overall\nAverage");
+        chartNum.setText(String.valueOf(getUserPerGameAverage(currentList)));
+    }
+
+    public void updateChart() {
+        List<Entry> entries = new ArrayList<>();
+
+        currentList.clear();
+
+        for (Session session : sessions) {
+            if (session.getTimestamp().getTime() - 28800000 >= selectedStartDate && session.getTimestamp().getTime() - 28800000 <= selectedEndDate) {
+                entries.add(new Entry(session.getTimestamp().getTime(), optionGetter(session)));
+                currentList.add(session);
+            }
+        }
+
+        Collections.sort(entries, new EntryXComparator());
+
+        LineDataSet dataSet = new LineDataSet(entries, "");
+        dataSet.setDrawValues(false);
+
+        statsChart.setData(new LineData(dataSet));
+        statsChart.animateX(1000);
+        statsChart.invalidate();
+        chartSessions.setText(String.valueOf(entries.size()));
+
+        DateFormat df = new SimpleDateFormat("MM/dd/yy", Locale.US);
+        chartDateLabel.setText(df.format(selectedStartDate + 28800000) + " - " + df.format(selectedEndDate + 28800000));
+        //TODO: Update chart num label and number based on filter selection
     }
 
     public void styleChart() {
-        statsChart.setBackgroundColor(0xFF00_0000);
-
+        statsChart.getDescription().setEnabled(false);
+        statsChart.setBackgroundColor(Color.BLACK);
+        statsChart.setNoDataTextColor(Color.YELLOW);
+        statsChart.setNoDataText("There are no sessions in the selected date range");
+        statsChart.setDrawMarkers(false);
+        statsChart.getLegend().setEnabled(false);
+        statsChart.setGridBackgroundColor(Color.WHITE);
+        statsChart.getXAxis().setDrawAxisLine(false);
+        statsChart.getXAxis().setDrawGridLines(false);
+        statsChart.getXAxis().setDrawLabels(false);
+        statsChart.getAxisLeft().setDrawAxisLine(false);
+        statsChart.getAxisLeft().setTextColor(Color.WHITE);
+        statsChart.getAxisLeft().setTextSize(12);
+        statsChart.getAxisRight().setMaxWidth(1);
+        statsChart.getAxisRight().setDrawAxisLine(false);
+        statsChart.getAxisRight().setDrawGridLines(false);
     }
 
 
@@ -320,19 +385,24 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
         int total = 0;
         int gameAverage;
         switch (gameNum) {
-            case 1:
+            case R.id.game_1:
                 for (int i = 0; i < sessionList.size(); i++) {
                     total += sessionList.get(i).getGame1();
                 }
                 break;
-            case 2:
+            case R.id.game_2:
                 for (int i = 0; i < sessionList.size(); i++) {
                     total += sessionList.get(i).getGame2();
                 }
                 break;
-            case 3:
+            case R.id.game_3:
                 for (int i = 0; i < sessionList.size(); i++) {
                     total += sessionList.get(i).getGame3();
+                }
+                break;
+            case R.id.high_game:
+                for (int i = 0; i < sessionList.size(); i++) {
+                    total += sessionList.get(i).getHighGame();
                 }
                 break;
             default:
@@ -352,25 +422,6 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
             total += sessionList.get(i).getTotalPins();
         }
         return total;
-    }
-
-    public void updateChart() {
-        List<Entry> entries = new ArrayList<>();
-
-        for (Session session : sessions) {
-            if (session.getTimestamp().getTime() - 28800000 >= selectedStartDate && session.getTimestamp().getTime() - 28800000 <= selectedEndDate) {
-                entries.add(new Entry(session.getTimestamp().getTime(), optionGetter(session)));
-                System.out.println("From the session " + session.getTimestamp().getTime());
-            }
-        }
-
-        Collections.sort(entries, new EntryXComparator());
-
-        LineDataSet dataSet = new LineDataSet(entries, "label");
-
-        statsChart.setData(new LineData(dataSet));
-        statsChart.invalidate();
-        chartSessions.setText(String.valueOf(entries.size()));
     }
     
     private int optionGetter(Session current) {
@@ -396,4 +447,5 @@ public class UpdatedStatsActivity extends AppCompatActivity implements PopupMenu
         }
         return attr;
     }
+
 }

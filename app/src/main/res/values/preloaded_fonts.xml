@@ -3,6 +3,7 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/aclonica</item>
         <item>@font/aldrich</item>
+        <item>@font/chakra_petch_semibold_italic</item>
         <item>@font/electrolize</item>
         <item>@font/quantico_bold</item>
     </array>
